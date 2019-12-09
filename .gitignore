@@ -1,1 +1,4 @@
 /.idea/
+/chromedriver.exe
+/debug.log
+/target/
