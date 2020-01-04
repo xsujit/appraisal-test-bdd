@@ -1,5 +1,6 @@
 package step_definitions.register;
 
+import conf.ConfigFileReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,16 +17,17 @@ public class RegisterSteps {
 
     WebDriver driver = new ChromeDriver();
     Register register = PageFactory.initElements(driver, Register.class);
-
+    ConfigFileReader configFileReader = new ConfigFileReader();
+    String baseUrl = configFileReader.getProp().getProperty("url") + ":" + configFileReader.getProp().getProperty("port");
 
     @Given("I open the appraisal application")
     public void iOpenTheAppraisalApplication() {
-        driver.get("localhost:8080");
+        driver.get(baseUrl);
     }
 
     @When("I enter my details on the registration page")
     public void iEnterMyDetailsOnTheRegistrationPage(Map<String, String> userDetails) {
-        driver.get("localhost:8080/register");
+        driver.get(baseUrl + "/register");
         register.enterRegistrationForm(userDetails);
         register.selectFirstProject();
     }

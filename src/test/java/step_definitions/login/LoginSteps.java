@@ -1,5 +1,6 @@
 package step_definitions.login;
 
+import conf.ConfigFileReader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -15,6 +16,13 @@ public class LoginSteps {
     WebDriver driver = new ChromeDriver();
     HomePage homePage = PageFactory.initElements(driver, HomePage.class);
     Login login = PageFactory.initElements(driver, Login.class);
+    ConfigFileReader configFileReader = new ConfigFileReader();
+    String baseUrl = configFileReader.getProp().getProperty("url") + ":" + configFileReader.getProp().getProperty("port");
+
+    @Given("I open the appraisal application")
+    public void iOpenTheAppraisalApplication() {
+        driver.get(baseUrl + "/login");
+    }
 
     @Given("I have valid {string} and {string}")
     public void iHaveValidAnd(String username, String password) {
