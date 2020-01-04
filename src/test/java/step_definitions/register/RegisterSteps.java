@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import pages.HomePage;
 import pages.Register;
 
 import java.util.Map;
@@ -17,6 +18,7 @@ public class RegisterSteps {
 
     WebDriver driver = new ChromeDriver();
     Register register = PageFactory.initElements(driver, Register.class);
+    HomePage homePage = PageFactory.initElements(driver, HomePage.class);
     ConfigFileReader configFileReader = new ConfigFileReader();
     String baseUrl = configFileReader.getProp().getProperty("url") + ":" + configFileReader.getProp().getProperty("port");
 
@@ -40,6 +42,11 @@ public class RegisterSteps {
     @Then("I should be registered")
     public void iShouldBeRegistered() {
         Assert.assertEquals(driver.getCurrentUrl(),
-                "http://localhost:8080/login");
+                baseUrl + "/login");
+    }
+
+    @And("click on Register link")
+    public void clickOnRegisterLink() {
+        homePage.clickRegisterLink();
     }
 }

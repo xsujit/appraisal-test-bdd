@@ -3,6 +3,7 @@ Feature: Registration
 
   Scenario: User should be able to register
     Given I open the appraisal application
+    And click on Register link
     When I enter my details on the registration page
       | firstName  | Peter                 |
       | lastName   | Mason                 |

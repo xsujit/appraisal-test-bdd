@@ -1,6 +1,7 @@
 package step_definitions.login;
 
 import conf.ConfigFileReader;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -21,7 +22,7 @@ public class LoginSteps {
 
     @Given("I open the appraisal application")
     public void iOpenTheAppraisalApplication() {
-        driver.get(baseUrl + "/login");
+        driver.get(baseUrl);
     }
 
     @Given("I have valid {string} and {string}")
@@ -38,5 +39,10 @@ public class LoginSteps {
     @Then("I should be logged in")
     public void iShouldBeLoggedIn() {
         Assert.assertEquals(homePage.getBanner(), "Hello, welcome to appraisal 2018");
+    }
+
+    @And("click on Login link")
+    public void clickOnLoginLink() {
+        homePage.clickLoginLink();
     }
 }
