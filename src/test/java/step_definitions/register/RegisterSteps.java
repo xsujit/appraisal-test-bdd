@@ -1,26 +1,32 @@
 package step_definitions.register;
 
-import conf.ConfigFileReader;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.HomePage;
 import pages.Register;
+import step_definitions.BaseSteps;
 
 import java.util.Map;
 
 public class RegisterSteps {
 
-    WebDriver driver = new ChromeDriver();
-    Register register = PageFactory.initElements(driver, Register.class);
-    HomePage homePage = PageFactory.initElements(driver, HomePage.class);
-    ConfigFileReader configFileReader = new ConfigFileReader();
-    String baseUrl = configFileReader.getProp().getProperty("url") + ":" + configFileReader.getProp().getProperty("port");
+    WebDriver driver;
+    String baseUrl;
+    HomePage homePage;
+    Register register;
+
+    // dependency injection
+    public RegisterSteps(BaseSteps baseSteps) {
+        driver = baseSteps.getDriver();
+        baseUrl = baseSteps.getBaseUrl();
+        homePage = baseSteps.getHomePage();
+        register = PageFactory.initElements(driver, Register.class);
+    }
 
     @Given("I open the appraisal application")
     public void iOpenTheAppraisalApplication() {
