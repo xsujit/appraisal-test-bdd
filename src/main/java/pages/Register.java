@@ -26,9 +26,9 @@ public class Register {
                 element.sendKeys(userDetails.get(element.getAttribute("id")));
     }
 
-    public void selectFirstProject() {
+    public void selectSecondProject() {
         Select project = new Select(projectDropDown);
-        project.selectByIndex(1);
+        project.selectByIndex(2);
     }
 
     public void submit() {
