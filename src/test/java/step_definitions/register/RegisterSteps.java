@@ -4,9 +4,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.restassured.RestAssured;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
+import pages.Employee;
 import pages.HomePage;
 import pages.Register;
 import step_definitions.BaseSteps;
@@ -19,6 +21,7 @@ public class RegisterSteps {
     String baseUrl;
     HomePage homePage;
     Register register;
+    Employee employee;
 
     // dependency injection
     public RegisterSteps(BaseSteps baseSteps) {
@@ -35,9 +38,10 @@ public class RegisterSteps {
 
     @When("I enter my details on the registration page")
     public void iEnterMyDetailsOnTheRegistrationPage(Map<String, String> userDetails) {
+        employee = new Employee(userDetails);
         driver.get(baseUrl + "/register");
         register.enterRegistrationForm(userDetails);
-        register.selectFirstProject();
+        register.selectSecondProject();
     }
 
     @And("click on submit")
@@ -47,8 +51,21 @@ public class RegisterSteps {
 
     @Then("I should be registered")
     public void iShouldBeRegistered() {
-        Assert.assertEquals(driver.getCurrentUrl(),
-                baseUrl + "/login");
+        String sessionId = RestAssured
+                .post("http://localhost:8080/login?username=jack.bauer@mastek.com&password=password")
+                .cookies()
+                .get("SESSION");
+
+        String email = RestAssured
+                .given()
+                .cookie("SESSION", sessionId)
+                .get("http://localhost:8080/admin/user")
+                .andReturn()
+                .getBody()
+                .htmlPath()
+                .getString("html.body.main.div.div.form.table.tbody.tr.td[4]");
+
+        Assert.assertEquals(email, employee.getEmail());
     }
 
     @And("click on Register link")
