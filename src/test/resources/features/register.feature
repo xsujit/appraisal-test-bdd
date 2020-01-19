@@ -5,12 +5,8 @@ Feature: Registration
     Given I open the appraisal application
     And click on Register link
     When I enter my details on the registration page
-      | firstName  | Peter                 |
-      | lastName   | Mason                 |
-      | username   | peter.mason@gmail.com |
-      | password   | password              |
-      | employeeId | 11564                 |
-      | location   | Glasgow               |
+      | firstName | lastName | username               | password | employeeId | location |
+      | Peter     | Mason    | peter.mason@gmail.com  | password | 11564      | Bradford |
     And click on submit
     Then I should be registered
 

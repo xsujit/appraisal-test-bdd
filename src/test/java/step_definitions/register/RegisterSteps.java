@@ -13,6 +13,7 @@ import pages.HomePage;
 import pages.Register;
 import step_definitions.BaseSteps;
 
+import java.util.List;
 import java.util.Map;
 
 public class RegisterSteps {
@@ -37,11 +38,13 @@ public class RegisterSteps {
     }
 
     @When("I enter my details on the registration page")
-    public void iEnterMyDetailsOnTheRegistrationPage(Map<String, String> userDetails) {
-        employee = new Employee(userDetails);
+    public void iEnterMyDetailsOnTheRegistrationPage(List<Map<String, String>> userDetails) {
         driver.get(baseUrl + "/register");
-        register.enterRegistrationForm(userDetails);
-        register.selectSecondProject();
+        for (Map<String, String> userDetail : userDetails) {
+            employee = new Employee(userDetail);
+            register.enterRegistrationForm(userDetail);
+            register.selectSecondProject();
+        }
     }
 
     @And("click on submit")
