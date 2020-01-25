@@ -1,5 +1,7 @@
 package step_definitions.register;
 
+import com.google.inject.Inject;
+import cucumber.runtime.java.guice.ScenarioScoped;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -16,6 +18,7 @@ import step_definitions.BaseSteps;
 import java.util.List;
 import java.util.Map;
 
+@ScenarioScoped
 public class RegisterSteps {
 
     WebDriver driver;
@@ -24,7 +27,7 @@ public class RegisterSteps {
     Register register;
     Employee employee;
 
-    // dependency injection
+    @Inject
     public RegisterSteps(BaseSteps baseSteps) {
         driver = baseSteps.getDriver();
         baseUrl = baseSteps.getBaseUrl();
@@ -74,5 +77,11 @@ public class RegisterSteps {
     @And("click on Register link")
     public void clickOnRegisterLink() {
         homePage.clickRegisterLink();
+    }
+
+    @Then("page should be redirected to {string}")
+    public void pageShouldBeRedirectedTo(String path) {
+        String url = driver.getCurrentUrl();
+        Assert.assertEquals(url, baseUrl + path);
     }
 }
