@@ -7,6 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
+import io.restassured.path.xml.XmlPath;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
@@ -62,16 +63,16 @@ public class RegisterSteps {
                 .cookies()
                 .get("SESSION");
 
-        String email = RestAssured
+        XmlPath htmlPage = RestAssured
                 .given()
                 .cookie("SESSION", sessionId)
                 .get("http://localhost:8080/admin/user")
                 .andReturn()
                 .getBody()
-                .htmlPath()
-                .getString("html.body.main.div.div.form.table.tbody.tr.td[4]");
+                .htmlPath();
 
-        Assert.assertEquals(email, employee.getEmail());
+        String form = htmlPage.getString("html.body.main.div.div.form");
+        Assert.assertTrue(form.contains(employee.getEmail()));
     }
 
     @And("click on Register link")
