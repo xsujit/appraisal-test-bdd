@@ -1,27 +1,27 @@
 package step_definitions;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import conf.ConfigFileReader;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
-import pages.HomePage;
+import driver.DriverModule;
 
 public class BaseSteps {
 
-    private WebDriver driver = new ChromeDriver();
-    private ConfigFileReader configFileReader = new ConfigFileReader();
-    private String baseUrl = configFileReader.getProp().getProperty("url") + ":" + configFileReader.getProp().getProperty("port");
-    private HomePage homePage = PageFactory.initElements(driver, HomePage.class);
+    private Injector injector;
+    private String baseUrl;
 
-    public WebDriver getDriver() {
-        return driver;
+    public BaseSteps() {
+        injector = Guice.createInjector(new DriverModule());
+        ConfigFileReader configFileReader = new ConfigFileReader();
+        baseUrl = configFileReader.getProp().getProperty("url") + ":" + configFileReader.getProp().getProperty("port");
+    }
+
+    public Injector getInjector() {
+        return injector;
     }
 
     public String getBaseUrl() {
         return baseUrl;
     }
 
-    public HomePage getHomePage() {
-        return homePage;
-    }
 }
