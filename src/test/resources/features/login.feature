@@ -2,8 +2,7 @@
 Feature: Login
 
   Scenario Outline: Login should be successful
-    Given I open the appraisal application
-    And click on Login link
+    Given I open the "login" page
     And I have valid "<username>" and "<password>"
     When I click on login
     Then I should be logged in

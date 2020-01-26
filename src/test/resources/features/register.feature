@@ -1,9 +1,8 @@
 @RegistrationTest
-Feature: Registration of users should be successful
+Feature: Registration of users should be successful on Appraisal application
 
-  Scenario Outline: User should be able to register
-    Given I open the appraisal application
-    And click on Register link
+  Scenario Outline: New users should be able to register
+    Given I open the "register" page
     When I enter my details on the registration page
       | firstName   | lastName   | username   | password   | employeeId   | location   |
       | <firstName> | <lastName> | <username> | <password> | <employeeId> | <location> |
