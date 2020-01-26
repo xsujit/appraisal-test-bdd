@@ -3,15 +3,17 @@ package driver;
 import annotations.ChromeBrowser;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.Singleton;
 
 public class DriverModule extends AbstractModule {
 
     @Override
     protected void configure() {
-
-        /*bind(DriverManager.class)
+        /*
+        bind(DriverManager.class)
                 .to(ChromeDriverManager.class)
-                .in(Scopes.SINGLETON);*/
+                .in(Scopes.SINGLETON);
+         */
     }
 
     /*@Provides
@@ -22,8 +24,9 @@ public class DriverModule extends AbstractModule {
 
     @Provides
     @ChromeBrowser
+    @Singleton
     public DriverManager getChromeDriverManager() {
-        System.out.println("ChromeDriverManager");
         return new ChromeDriverManager();
     }
+
 }
