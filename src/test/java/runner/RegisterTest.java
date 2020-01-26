@@ -1,10 +1,15 @@
 package runner;
 
+import io.cucumber.core.api.Scenario;
+import io.cucumber.core.event.Status;
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
-import org.testng.ITestContext;
+import io.cucumber.testng.TestNGCucumberRunner;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
+
+import java.util.Arrays;
 
 @CucumberOptions(
         features = "classpath:features",
@@ -13,15 +18,32 @@ import org.testng.annotations.BeforeMethod;
 )
 public class RegisterTest extends AbstractTestNGCucumberTests {
 
+    private TestNGCucumberRunner testNGCucumberRunner;
+    // private ITestContext iTestContext;
+
+    public RegisterTest() {
+        this.testNGCucumberRunner = new TestNGCucumberRunner(this.getClass());
+    }
+
     @BeforeMethod
-    public void setup(ITestContext scenario) {
-        System.out.println("Starting scenario " + scenario.getName());
+    public void setup() {
+
+        System.out.println("Starting scenario " + Arrays.deepToString(provideScenarios()));
     }
 
     @AfterTest
-    public void tearDown(ITestContext scenario) {
-        System.out.println("Status " + scenario.getPassedTests().toString());
+    public void tearDown() {
+        System.out.println("Status ");
     }
 
+    @DataProvider
+    public Object[][] provideScenarios() {
+        return testNGCucumberRunner.provideScenarios();
+    }
+
+    @DataProvider
+    public Object[] getName(Scenario scenario) {
+        return new Status[]{scenario.getStatus()};
+    }
 }
 
