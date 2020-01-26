@@ -1,34 +1,37 @@
 package step_definitions.login;
 
-import io.cucumber.java.en.And;
+import cucumber.runtime.java.guice.ScenarioScoped;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import pages.HomePage;
 import pages.Login;
 import step_definitions.BaseSteps;
 
-public class LoginSteps {
+@ScenarioScoped
+public class LoginSteps extends BaseSteps {
 
-    WebDriver driver;
-    HomePage homePage;
     Login login;
-    String baseUrl;
+    HomePage homePage;
 
-    // dependency injection
-    public LoginSteps(BaseSteps baseSteps) {
-        driver = baseSteps.getDriver();
-        baseUrl = baseSteps.getBaseUrl();
-        homePage = baseSteps.getHomePage();
-        login = PageFactory.initElements(driver, Login.class);
+    public LoginSteps() {
+        login = getInjector().getInstance(Login.class);
+        homePage = getInjector().getInstance(HomePage.class);
     }
 
-    @Given("I open the appraisal application")
-    public void iOpenTheAppraisalApplication() {
-        driver.get(baseUrl);
+    @Given("I open the {string} page")
+    public void iOpenThePage(String page) {
+        switch (page) {
+            case "register":
+                // pending
+                break;
+            case "login":
+                login.goTo();
+                break;
+            default:
+                System.out.println("No matching page");
+        }
     }
 
     @Given("I have valid {string} and {string}")
@@ -47,8 +50,4 @@ public class LoginSteps {
         Assert.assertEquals(homePage.getBanner(), "Hello, welcome to appraisal 2018");
     }
 
-    @And("click on Login link")
-    public void clickOnLoginLink() {
-        homePage.clickLoginLink();
-    }
 }
