@@ -33,9 +33,10 @@ public class ChromeDriverManager extends DriverManager {
 
     @Override
     public void createDriver() {
+        startService();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
         driver = new RemoteWebDriver(service.getUrl(), options);
-        // driver = new ChromeDriver(chService, options);
+        // driver = new ChromeDriver(service, new ChromeOptions());
     }
 }
