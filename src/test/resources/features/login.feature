@@ -9,3 +9,4 @@ Feature: Login
     Examples:
       | username              | password |
       | jack.bauer@mastek.com | password |
+      | james.bond@mastek.com | password |
