@@ -1,15 +1,15 @@
 package pages;
 
-import annotations.ChromeBrowser;
 import com.google.inject.Inject;
-import driver.DriverManager;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Login extends BasePage {
+public class Login {
 
     private String url;
+    private WebDriver webDriver;
 
     @FindBy(id = "inputEmail")
     WebElement inputEmail;
@@ -21,14 +21,14 @@ public class Login extends BasePage {
     WebElement submitButton;
 
     @Inject
-    public Login(@ChromeBrowser DriverManager driverManager) {
-        super(driverManager);
-        url = getBaseUrl() + "/login";
-        PageFactory.initElements(driverManager.getDriver(), this);
+    public Login(PageUtil pageUtil) {
+        webDriver = pageUtil.getDriver();
+        url = pageUtil.getBaseUrl() + "/login";
+        PageFactory.initElements(webDriver, this);
     }
 
     public void goTo() {
-        navigateTo(url);
+        webDriver.get(url);
     }
 
     public void enterEmail(String email) {

@@ -1,13 +1,11 @@
 package pages;
 
-import annotations.ChromeBrowser;
 import com.google.inject.Inject;
-import driver.DriverManager;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class HomePage extends BasePage {
+public class HomePage {
 
     @FindBy(css = ".display-3")
     WebElement banner;
@@ -19,9 +17,8 @@ public class HomePage extends BasePage {
     WebElement loginLink;
 
     @Inject
-    public HomePage(@ChromeBrowser DriverManager driver) {
-        super(driver);
-        PageFactory.initElements(driver.getDriver(), this);
+    public HomePage(PageUtil pageUtil) {
+        PageFactory.initElements(pageUtil.getDriver(), this);
     }
 
     public String getBanner() {

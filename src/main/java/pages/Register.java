@@ -1,9 +1,8 @@
 package pages;
 
-import annotations.ChromeBrowser;
 import com.google.inject.Inject;
-import driver.DriverManager;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -12,9 +11,11 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.List;
 import java.util.Map;
 
-public class Register extends BasePage {
+public class Register {
 
     private String url;
+    private WebDriver webDriver;
+    private PageUtil pageUtil;
 
     @FindBy(css = ".form-signin")
     WebElement registrationForm;
@@ -26,14 +27,15 @@ public class Register extends BasePage {
     WebElement submit;
 
     @Inject
-    public Register(@ChromeBrowser DriverManager driverManager) {
-        super(driverManager);
-        url = getBaseUrl() + "/register";
-        PageFactory.initElements(driverManager.getDriver(), this);
+    public Register(PageUtil pageUtil) {
+        this.pageUtil = pageUtil;
+        this.webDriver = pageUtil.getDriver();
+        url = pageUtil.getBaseUrl() + "/register";
+        PageFactory.initElements(webDriver, this);
     }
 
     public void goTo() {
-        navigateTo(url);
+        webDriver.get(url);
     }
 
     public void enterRegistrationForm(Map<String, String> userDetails) {
@@ -50,5 +52,13 @@ public class Register extends BasePage {
 
     public void submit() {
         submit.click();
+    }
+
+    public String getCurrentUrl() {
+        return webDriver.getCurrentUrl();
+    }
+
+    public String getBaseUrl() {
+        return pageUtil.getBaseUrl();
     }
 }
