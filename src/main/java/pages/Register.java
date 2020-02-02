@@ -29,7 +29,7 @@ public class Register {
     @Inject
     public Register(PageUtil pageUtil) {
         this.pageUtil = pageUtil;
-        this.webDriver = pageUtil.getDriver();
+        this.webDriver = pageUtil.getDriverManager().getDriver();
         url = pageUtil.getBaseUrl() + "/register";
         PageFactory.initElements(webDriver, this);
     }

@@ -22,7 +22,7 @@ public class LoginPage {
 
     @Inject
     public LoginPage(PageUtil pageUtil) {
-        webDriver = pageUtil.getDriver();
+        webDriver = pageUtil.getDriverManager().getDriver();
         url = pageUtil.getBaseUrl() + "/login";
         PageFactory.initElements(webDriver, this);
     }

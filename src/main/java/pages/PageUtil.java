@@ -4,18 +4,17 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import conf.ConfigFileReader;
 import driver.DriverManager;
-import org.openqa.selenium.WebDriver;
 
 import java.util.Properties;
 
 public class PageUtil {
 
-    private WebDriver driver;
+    private DriverManager driverManager;
     private Properties properties;
 
     @Inject
     public PageUtil(@Named("CHROME") DriverManager driverManager, ConfigFileReader configFileReader) {
-        this.driver = driverManager.getDriver();
+        this.driverManager = driverManager;
         properties = configFileReader.getProp();
     }
 
@@ -23,8 +22,7 @@ public class PageUtil {
         return properties.getProperty("url") + ":" + properties.getProperty("port");
     }
 
-    public WebDriver getDriver() {
-        return driver;
+    public DriverManager getDriverManager() {
+        return driverManager;
     }
-
 }
