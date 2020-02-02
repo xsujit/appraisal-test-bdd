@@ -6,9 +6,10 @@ import java.util.Properties;
 
 public class ConfigFileReader {
 
-    Properties prop = new Properties();
+    Properties prop;
 
     public ConfigFileReader() {
+        prop = new Properties();
         try (InputStream input = ConfigFileReader.class
                 .getClassLoader()
                 .getResourceAsStream("config.properties")) {
@@ -17,7 +18,6 @@ public class ConfigFileReader {
                 System.out.println("Sorry, unable to find config.properties");
                 return;
             }
-
             this.prop.load(input);
         } catch (IOException e) {
             e.printStackTrace();
