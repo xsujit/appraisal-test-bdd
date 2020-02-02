@@ -13,7 +13,7 @@ import java.util.Arrays;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "step_definitions.register",
+        glue = "step_definitions",
         tags = "@RegistrationTest"
 )
 public class RegisterTest extends AbstractTestNGCucumberTests {
