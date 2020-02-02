@@ -1,11 +1,14 @@
 package pages;
 
 import com.google.inject.Inject;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 public class HomePage {
+
+    private WebDriver webDriver;
 
     @FindBy(css = ".display-3")
     WebElement banner;
@@ -18,7 +21,8 @@ public class HomePage {
 
     @Inject
     public HomePage(PageUtil pageUtil) {
-        PageFactory.initElements(pageUtil.getDriver(), this);
+        webDriver = pageUtil.getDriverManager().getDriver();
+        PageFactory.initElements(webDriver, this);
     }
 
     public String getBanner() {
