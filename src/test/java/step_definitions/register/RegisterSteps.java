@@ -1,6 +1,7 @@
 package step_definitions.register;
 
 import cucumber.runtime.java.guice.ScenarioScoped;
+import domain.Employee;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,7 +9,6 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import org.testng.Assert;
-import pages.Employee;
 import pages.Register;
 import step_definitions.BaseSteps;
 

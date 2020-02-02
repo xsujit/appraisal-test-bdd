@@ -1,4 +1,4 @@
-package pages;
+package domain;
 
 import java.util.Map;
 

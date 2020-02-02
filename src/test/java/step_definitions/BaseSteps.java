@@ -3,7 +3,7 @@ package step_definitions;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import conf.ConfigFileReader;
-import driver.AppModule;
+import guice.AppModule;
 
 public class BaseSteps {
 

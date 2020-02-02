@@ -1,8 +1,10 @@
-package driver;
+package guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
+import driver.ChromeDriverManager;
+import driver.DriverManager;
 
 public class AppModule extends AbstractModule {
 
