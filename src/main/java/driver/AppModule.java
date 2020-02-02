@@ -4,7 +4,7 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Scopes;
 import com.google.inject.name.Names;
 
-public class DriverModule extends AbstractModule {
+public class AppModule extends AbstractModule {
 
     @Override
     protected void configure() {
