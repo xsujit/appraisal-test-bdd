@@ -1,23 +1,25 @@
 package step_definitions.login;
 
+import com.google.inject.Inject;
 import cucumber.runtime.java.guice.ScenarioScoped;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.HomePage;
-import pages.Login;
-import step_definitions.BaseSteps;
+import pages.LoginPage;
+import step_definitions.utils.StepUtil;
 
 @ScenarioScoped
-public class LoginSteps extends BaseSteps {
+public class LoginSteps {
 
-    Login login;
+    LoginPage loginPage;
     HomePage homePage;
 
-    public LoginSteps() {
-        login = getInjector().getInstance(Login.class);
-        homePage = getInjector().getInstance(HomePage.class);
+    @Inject
+    public LoginSteps(StepUtil stepUtil) {
+        loginPage = stepUtil.getLoginPage();
+        homePage = stepUtil.getHomePage();
     }
 
     @Given("I open the {string} page")
@@ -27,7 +29,7 @@ public class LoginSteps extends BaseSteps {
                 // pending
                 break;
             case "login":
-                login.goTo();
+                loginPage.goTo();
                 break;
             default:
                 System.out.println("No matching page");
@@ -36,13 +38,13 @@ public class LoginSteps extends BaseSteps {
 
     @Given("I have valid {string} and {string}")
     public void iHaveValidAnd(String username, String password) {
-        login.enterEmail(username);
-        login.enterPassword(password);
+        loginPage.enterEmail(username);
+        loginPage.enterPassword(password);
     }
 
     @When("I click on login")
     public void iClickOnLogin() {
-        login.clickSubmit();
+        loginPage.clickSubmit();
     }
 
     @Then("I should be logged in")

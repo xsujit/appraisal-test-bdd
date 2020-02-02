@@ -13,7 +13,7 @@ public class HomePage {
     @FindBy(linkText = "Register")
     WebElement registerLink;
 
-    @FindBy(linkText = "Login")
+    @FindBy(linkText = "LoginPage")
     WebElement loginLink;
 
     @Inject

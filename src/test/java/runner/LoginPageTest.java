@@ -18,7 +18,7 @@ import java.util.List;
         glue = "step_definitions.login",
         tags = "@LoginTest"
 )
-public class LoginTest {
+public class LoginPageTest {
 
     private TestNGCucumberRunner testNGCucumberRunner;
 

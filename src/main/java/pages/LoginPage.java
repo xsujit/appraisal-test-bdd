@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Login {
+public class LoginPage {
 
     private String url;
     private WebDriver webDriver;
@@ -21,7 +21,7 @@ public class Login {
     WebElement submitButton;
 
     @Inject
-    public Login(PageUtil pageUtil) {
+    public LoginPage(PageUtil pageUtil) {
         webDriver = pageUtil.getDriver();
         url = pageUtil.getBaseUrl() + "/login";
         PageFactory.initElements(webDriver, this);

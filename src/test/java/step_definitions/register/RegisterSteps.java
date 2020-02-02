@@ -1,5 +1,6 @@
 package step_definitions.register;
 
+import com.google.inject.Inject;
 import cucumber.runtime.java.guice.ScenarioScoped;
 import domain.Employee;
 import io.cucumber.java.en.And;
@@ -10,19 +11,20 @@ import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import org.testng.Assert;
 import pages.Register;
-import step_definitions.BaseSteps;
+import step_definitions.utils.StepUtil;
 
 import java.util.List;
 import java.util.Map;
 
 @ScenarioScoped
-public class RegisterSteps extends BaseSteps {
+public class RegisterSteps {
 
     Register register;
     Employee employee;
 
-    public RegisterSteps() {
-        register = getInjector().getInstance(Register.class);
+    @Inject
+    public RegisterSteps(StepUtil stepUtil) {
+        register = stepUtil.getRegisterPage();
     }
 
     @Given("I open the {string} page")

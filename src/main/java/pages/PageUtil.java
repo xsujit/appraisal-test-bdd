@@ -11,17 +11,16 @@ import java.util.Properties;
 public class PageUtil {
 
     private WebDriver driver;
-    private Properties prop;
+    private Properties properties;
 
     @Inject
-    public PageUtil(@Named("CHROME") DriverManager driverManager) {
+    public PageUtil(@Named("CHROME") DriverManager driverManager, ConfigFileReader configFileReader) {
         this.driver = driverManager.getDriver();
-        ConfigFileReader configFileReader = new ConfigFileReader();
-        prop = configFileReader.getProp();
+        properties = configFileReader.getProp();
     }
 
     public String getBaseUrl() {
-        return prop.getProperty("url") + ":" + prop.getProperty("port");
+        return properties.getProperty("url") + ":" + properties.getProperty("port");
     }
 
     public WebDriver getDriver() {
