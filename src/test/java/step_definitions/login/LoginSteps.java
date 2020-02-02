@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.HomePage;
 import pages.LoginPage;
+import pages.Register;
 import step_definitions.utils.StepUtil;
 
 @ScenarioScoped
@@ -15,18 +16,20 @@ public class LoginSteps {
 
     LoginPage loginPage;
     HomePage homePage;
+    Register register;
 
     @Inject
     public LoginSteps(StepUtil stepUtil) {
         loginPage = stepUtil.getLoginPage();
         homePage = stepUtil.getHomePage();
+        register = stepUtil.getRegisterPage();
     }
 
     @Given("I open the {string} page")
     public void iOpenThePage(String page) {
         switch (page) {
             case "register":
-                // pending
+                register.goTo();
                 break;
             case "login":
                 loginPage.goTo();

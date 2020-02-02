@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import cucumber.runtime.java.guice.ScenarioScoped;
 import domain.Employee;
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
@@ -27,6 +26,7 @@ public class RegisterSteps {
         register = stepUtil.getRegisterPage();
     }
 
+    /*
     @Given("I open the {string} page")
     public void iOpenThePage(String page) {
         switch (page) {
@@ -40,6 +40,7 @@ public class RegisterSteps {
                 System.out.println("No matching page");
         }
     }
+    */
 
     @When("I enter my details on the registration page")
     public void iEnterMyDetailsOnTheRegistrationPage(List<Map<String, String>> userDetails) {
