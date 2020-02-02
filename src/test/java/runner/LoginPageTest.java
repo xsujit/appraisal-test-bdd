@@ -1,15 +1,15 @@
 package runner;
 
+import com.google.inject.Inject;
 import gherkin.events.PickleEvent;
 import gherkin.pickles.PickleStep;
+import guice.AppModule;
 import io.cucumber.testng.CucumberFeatureWrapper;
 import io.cucumber.testng.CucumberOptions;
 import io.cucumber.testng.PickleEventWrapper;
 import io.cucumber.testng.TestNGCucumberRunner;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
+import pages.PageUtil;
 
 import java.util.List;
 
@@ -18,9 +18,16 @@ import java.util.List;
         glue = "step_definitions.login",
         tags = "@LoginTest"
 )
+@Guice(modules = {AppModule.class})
 public class LoginPageTest {
 
+    private PageUtil pageUtil;
     private TestNGCucumberRunner testNGCucumberRunner;
+
+    @Inject
+    public LoginPageTest(PageUtil pageUtil) {
+        this.pageUtil = pageUtil;
+    }
 
     @BeforeClass(alwaysRun = true)
     public void setUpClass() {
@@ -51,6 +58,7 @@ public class LoginPageTest {
     @AfterClass(alwaysRun = true)
     public void tearDownClass() {
         if (this.testNGCucumberRunner != null) {
+            pageUtil.getDriverManager().quitDriver();
             this.testNGCucumberRunner.finish();
         }
     }
