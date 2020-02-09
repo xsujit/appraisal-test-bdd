@@ -1,4 +1,4 @@
-package com.appraisal.step_definitions.register;
+package com.appraisal.steps;
 
 import com.appraisal.domain.Employee;
 import com.appraisal.pages.Register;

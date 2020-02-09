@@ -1,4 +1,4 @@
-package com.appraisal.step_definitions.login;
+package com.appraisal.steps;
 
 import com.appraisal.pages.HomePage;
 import com.appraisal.pages.LoginPage;

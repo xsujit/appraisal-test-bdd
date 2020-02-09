@@ -6,7 +6,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "com.appraisal.step_definitions.login",
+        glue = "com.appraisal.steps",
         tags = "@LoginTest"
 )
 public class LoginPageTest extends AbstractTestNGCucumberTests {

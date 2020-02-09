@@ -5,7 +5,7 @@ import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
         features = "classpath:features",
-        glue = "com/appraisal/step_definitions",
+        glue = "com/appraisal/steps",
         tags = "@LoginTest or @RegistrationTest"
 )
 public class RegressionTest extends AbstractTestNGCucumberTests {
