@@ -1,35 +1,31 @@
 package step_definitions.login;
 
 import com.google.inject.Inject;
-import cucumber.runtime.java.guice.ScenarioScoped;
+import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
 import pages.HomePage;
 import pages.LoginPage;
-import pages.Register;
-import step_definitions.utils.StepUtil;
 
 @ScenarioScoped
 public class LoginSteps {
 
     LoginPage loginPage;
     HomePage homePage;
-    Register register;
 
     @Inject
-    public LoginSteps(StepUtil stepUtil) {
-        loginPage = stepUtil.getLoginPage();
-        homePage = stepUtil.getHomePage();
-        register = stepUtil.getRegisterPage();
+    public LoginSteps(LoginPage loginPage, HomePage homePage) {
+        this.loginPage = loginPage;
+        this.homePage = homePage;
     }
 
     @Given("I open the {string} page")
     public void iOpenThePage(String page) {
         switch (page) {
             case "register":
-                register.goTo();
+                // TODO
                 break;
             case "login":
                 loginPage.goTo();

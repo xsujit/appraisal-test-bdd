@@ -1,8 +1,8 @@
 package step_definitions.register;
 
 import com.google.inject.Inject;
-import cucumber.runtime.java.guice.ScenarioScoped;
 import domain.Employee;
+import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +10,6 @@ import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import org.testng.Assert;
 import pages.Register;
-import step_definitions.utils.StepUtil;
 
 import java.util.List;
 import java.util.Map;
@@ -22,25 +21,9 @@ public class RegisterSteps {
     Employee employee;
 
     @Inject
-    public RegisterSteps(StepUtil stepUtil) {
-        register = stepUtil.getRegisterPage();
+    public RegisterSteps(Register register) {
+        this.register = register;
     }
-
-    /*
-    @Given("I open the {string} page")
-    public void iOpenThePage(String page) {
-        switch (page) {
-            case "register":
-                register.goTo();
-                break;
-            case "login":
-                // pending
-                break;
-            default:
-                System.out.println("No matching page");
-        }
-    }
-    */
 
     @When("I enter my details on the registration page")
     public void iEnterMyDetailsOnTheRegistrationPage(List<Map<String, String>> userDetails) {
