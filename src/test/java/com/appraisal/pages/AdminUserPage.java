@@ -1,4 +1,4 @@
-package pages;
+package com.appraisal.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

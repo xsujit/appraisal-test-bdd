@@ -1,4 +1,4 @@
-package driver;
+package com.appraisal.driver;
 
 import org.openqa.selenium.WebDriver;
 

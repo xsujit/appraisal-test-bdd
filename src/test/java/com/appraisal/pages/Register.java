@@ -1,4 +1,4 @@
-package pages;
+package com.appraisal.pages;
 
 import com.google.inject.Inject;
 import org.openqa.selenium.By;

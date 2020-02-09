@@ -1,4 +1,4 @@
-package conf;
+package com.appraisal.conf;
 
 import java.io.IOException;
 import java.io.InputStream;

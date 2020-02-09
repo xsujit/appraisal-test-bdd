@@ -1,7 +1,8 @@
-package step_definitions.register;
+package com.appraisal.step_definitions.register;
 
+import com.appraisal.domain.Employee;
+import com.appraisal.pages.Register;
 import com.google.inject.Inject;
-import domain.Employee;
 import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
@@ -9,7 +10,6 @@ import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
 import io.restassured.path.xml.XmlPath;
 import org.testng.Assert;
-import pages.Register;
 
 import java.util.List;
 import java.util.Map;

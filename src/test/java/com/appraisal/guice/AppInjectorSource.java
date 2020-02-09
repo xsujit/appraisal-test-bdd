@@ -1,4 +1,4 @@
-package guice;
+package com.appraisal.guice;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;

@@ -1,9 +1,9 @@
-package pages;
+package com.appraisal.pages;
 
+import com.appraisal.conf.ConfigFileReader;
+import com.appraisal.driver.DriverManager;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import conf.ConfigFileReader;
-import driver.DriverManager;
 
 import java.util.Properties;
 

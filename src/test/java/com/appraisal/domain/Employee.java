@@ -1,4 +1,4 @@
-package domain;
+package com.appraisal.domain;
 
 import java.util.Map;
 

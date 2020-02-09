@@ -1,13 +1,13 @@
-package step_definitions.login;
+package com.appraisal.step_definitions.login;
 
+import com.appraisal.pages.HomePage;
+import com.appraisal.pages.LoginPage;
 import com.google.inject.Inject;
 import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
-import pages.HomePage;
-import pages.LoginPage;
 
 @ScenarioScoped
 public class LoginSteps {

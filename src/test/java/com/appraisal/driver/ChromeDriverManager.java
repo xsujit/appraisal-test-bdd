@@ -1,4 +1,4 @@
-package driver;
+package com.appraisal.driver;
 
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -37,6 +37,6 @@ public class ChromeDriverManager extends DriverManager {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
         driver = new RemoteWebDriver(service.getUrl(), options);
-        // driver = new ChromeDriver(service, new ChromeOptions());
+        // com.appraisal.driver = new ChromeDriver(service, new ChromeOptions());
     }
 }

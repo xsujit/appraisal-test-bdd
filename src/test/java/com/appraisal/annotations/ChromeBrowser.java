@@ -1,4 +1,4 @@
-package annotations;
+package com.appraisal.annotations;
 
 import com.google.inject.BindingAnnotation;
 
