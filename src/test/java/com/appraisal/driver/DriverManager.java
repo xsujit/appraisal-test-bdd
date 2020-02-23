@@ -17,7 +17,6 @@ public abstract class DriverManager {
         if (null != driver) {
             driver.quit();
             driver = null;
-            stopService();
         }
     }
 
