@@ -1,9 +1,12 @@
 package com.appraisal.steps;
 
+import com.appraisal.context.ApplicantContext;
 import com.appraisal.pages.HomePage;
 import com.appraisal.pages.LoginPage;
+import com.appraisal.pages.Register;
 import com.google.inject.Inject;
 import io.cucumber.guice.ScenarioScoped;
+import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -14,18 +17,22 @@ public class LoginSteps {
 
     LoginPage loginPage;
     HomePage homePage;
+    Register register;
+    ApplicantContext applicantContext;
 
     @Inject
-    public LoginSteps(LoginPage loginPage, HomePage homePage) {
+    public LoginSteps(LoginPage loginPage, HomePage homePage, Register register, ApplicantContext applicantContext) {
         this.loginPage = loginPage;
         this.homePage = homePage;
+        this.register = register;
+        this.applicantContext = applicantContext;
     }
 
     @Given("I open the {string} page")
     public void iOpenThePage(String page) {
         switch (page) {
             case "register":
-                // TODO
+                register.goTo();
                 break;
             case "login":
                 loginPage.goTo();
@@ -49,6 +56,11 @@ public class LoginSteps {
     @Then("I should be logged in")
     public void iShouldBeLoggedIn() {
         Assert.assertEquals(homePage.getBanner(), "Hello, welcome to appraisal 2018");
+    }
+
+    @After
+    public void closeBrowser() {
+        applicantContext.getDriverManager().quitDriver();
     }
 
 }

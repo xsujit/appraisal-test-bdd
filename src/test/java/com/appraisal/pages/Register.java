@@ -1,5 +1,6 @@
 package com.appraisal.pages;
 
+import com.appraisal.context.ApplicantContext;
 import com.google.inject.Inject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -13,9 +14,9 @@ import java.util.Map;
 
 public class Register {
 
+    private String baseUrl;
     private String url;
     private WebDriver webDriver;
-    private PageUtil pageUtil;
 
     @FindBy(css = ".form-signin")
     WebElement registrationForm;
@@ -27,10 +28,10 @@ public class Register {
     WebElement submit;
 
     @Inject
-    public Register(PageUtil pageUtil) {
-        this.pageUtil = pageUtil;
-        this.webDriver = pageUtil.getDriverManager().getDriver();
-        url = pageUtil.getBaseUrl() + "/register";
+    public Register(ApplicantContext applicantContext) {
+        this.webDriver = applicantContext.getDriverManager().getDriver();
+        url = applicantContext.getBaseUrl() + "/register";
+        baseUrl = applicantContext.getBaseUrl();
         PageFactory.initElements(webDriver, this);
     }
 
@@ -59,6 +60,6 @@ public class Register {
     }
 
     public String getBaseUrl() {
-        return pageUtil.getBaseUrl();
+        return baseUrl;
     }
 }

@@ -1,5 +1,6 @@
 package com.appraisal.pages;
 
+import com.appraisal.context.ApplicantContext;
 import com.google.inject.Inject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,9 +22,9 @@ public class LoginPage {
     WebElement submitButton;
 
     @Inject
-    public LoginPage(PageUtil pageUtil) {
-        webDriver = pageUtil.getDriverManager().getDriver();
-        url = pageUtil.getBaseUrl() + "/login";
+    public LoginPage(ApplicantContext applicantContext) {
+        webDriver = applicantContext.getDriverManager().getDriver();
+        url = applicantContext.getBaseUrl() + "/login";
         PageFactory.initElements(webDriver, this);
     }
 
