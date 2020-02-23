@@ -15,7 +15,7 @@ import java.util.Map;
 public class Register {
 
     private String baseUrl;
-    private String url;
+    private String pageUrl;
     private WebDriver webDriver;
 
     @FindBy(css = ".form-signin")
@@ -30,13 +30,13 @@ public class Register {
     @Inject
     public Register(ApplicantContext applicantContext) {
         this.webDriver = applicantContext.getDriverManager().getDriver();
-        url = applicantContext.getBaseUrl() + "/register";
+        pageUrl = applicantContext.getBaseUrl() + "/register";
         baseUrl = applicantContext.getBaseUrl();
         PageFactory.initElements(webDriver, this);
     }
 
     public void goTo() {
-        webDriver.get(url);
+        webDriver.get(pageUrl);
     }
 
     public void enterRegistrationForm(Map<String, String> userDetails) {

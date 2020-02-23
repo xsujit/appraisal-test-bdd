@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-    private String url;
+    private String pageUrl;
     private WebDriver webDriver;
 
     @FindBy(id = "inputEmail")
@@ -24,12 +24,12 @@ public class LoginPage {
     @Inject
     public LoginPage(ApplicantContext applicantContext) {
         webDriver = applicantContext.getDriverManager().getDriver();
-        url = applicantContext.getBaseUrl() + "/login";
+        pageUrl = applicantContext.getBaseUrl() + "/login";
         PageFactory.initElements(webDriver, this);
     }
 
     public void goTo() {
-        webDriver.get(url);
+        webDriver.get(pageUrl);
     }
 
     public void enterEmail(String email) {

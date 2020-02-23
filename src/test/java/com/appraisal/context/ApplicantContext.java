@@ -24,9 +24,9 @@ public class ApplicantContext {
         return driverManager;
     }
 
-    public Properties getProperties() {
+    /*public Properties getProperties() {
         return properties;
-    }
+    }*/
 
     public String getBaseUrl() {
         return properties.getProperty("url") + ":" + properties.getProperty("port");
