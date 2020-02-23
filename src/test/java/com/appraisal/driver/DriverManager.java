@@ -13,7 +13,6 @@ public abstract class DriverManager {
     protected abstract void createDriver();
 
     public void quitDriver() {
-        System.out.println("Quit driver");
         if (null != driver) {
             driver.quit();
             driver = null;
