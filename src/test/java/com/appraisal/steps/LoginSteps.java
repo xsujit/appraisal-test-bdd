@@ -9,6 +9,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.testng.Assert;
+import org.testng.log4testng.Logger;
 
 @ScenarioScoped
 public class LoginSteps {
@@ -16,6 +17,7 @@ public class LoginSteps {
     LoginPage loginPage;
     HomePage homePage;
     Register register;
+    private static final Logger LOGGER = Logger.getLogger(LoginSteps.class);
 
     @Inject
     public LoginSteps(LoginPage loginPage, HomePage homePage, Register register) {
@@ -28,9 +30,11 @@ public class LoginSteps {
     public void iOpenThePage(String page) {
         switch (page) {
             case "register":
+                LOGGER.info("Navigating to register page");
                 register.goTo();
                 break;
             case "login":
+                LOGGER.info("Navigating to login page");
                 loginPage.goTo();
                 break;
             default:
@@ -51,6 +55,7 @@ public class LoginSteps {
 
     @Then("I should be logged in")
     public void iShouldBeLoggedIn() {
+        LOGGER.info("Verifying home page banner after successful login");
         Assert.assertEquals(homePage.getBanner(), "Hello, welcome to appraisal 2018");
     }
 
