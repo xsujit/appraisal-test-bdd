@@ -1,5 +1,6 @@
 package com.appraisal.steps;
 
+import com.appraisal.context.ApplicantContext;
 import com.appraisal.pages.HomePage;
 import com.appraisal.pages.LoginPage;
 import com.appraisal.pages.Register;
@@ -11,31 +12,37 @@ import io.cucumber.java.en.When;
 import org.testng.Assert;
 import org.testng.log4testng.Logger;
 
+import java.util.List;
+
 @ScenarioScoped
 public class LoginSteps {
 
-    LoginPage loginPage;
-    HomePage homePage;
-    Register register;
-    private static final Logger LOGGER = Logger.getLogger(LoginSteps.class);
+    private LoginPage loginPage;
+    private HomePage homePage;
+    private Register register;
+    private final ApplicantContext applicantContext;
+    private static final Logger logger = Logger.getLogger(LoginSteps.class);
 
     @Inject
-    public LoginSteps(LoginPage loginPage, HomePage homePage, Register register) {
-        this.loginPage = loginPage;
-        this.homePage = homePage;
-        this.register = register;
+    public LoginSteps(ApplicantContext applicantContext) {
+        logger.info("LoginSteps initialized");
+        this.applicantContext = applicantContext;
     }
 
     @Given("I open the {string} page")
     public void iOpenThePage(String page) {
         switch (page) {
             case "register":
-                LOGGER.info("Navigating to register page");
+                logger.info("Navigating to register page");
                 register.goTo();
                 break;
             case "login":
-                LOGGER.info("Navigating to login page");
+                logger.info("Navigating to login page");
                 loginPage.goTo();
+                break;
+            case "home":
+                logger.info("Navigating to home page");
+                homePage.goTo();
                 break;
             default:
                 System.out.println("No matching page");
@@ -55,8 +62,31 @@ public class LoginSteps {
 
     @Then("I should be logged in")
     public void iShouldBeLoggedIn() {
-        LOGGER.info("Verifying home page banner after successful login");
+        logger.info("Verifying home page banner after successful login");
         Assert.assertEquals(homePage.getBanner(), "Hello, welcome to appraisal 2018");
     }
 
+    @Given("I open the application and login using the following")
+    public void iOpenTheApplicationAndLoginUsingTheFollowing(List<String> credentials) {
+        /*homePage = new HomePage(applicantContext)
+                .goTo()
+                .clickLoginLink()
+                .enterEmail(credentials.get(0))
+                .enterPassword(credentials.get(1))
+                .clickSubmit();*/
+        new HomePage(applicantContext)
+                .goTo()
+                .clickLoginLink();
+        homePage = new LoginPage(applicantContext).enterEmail(credentials.get(0))
+                .enterPassword(credentials.get(1))
+                .clickSubmit();
+
+    }
+
+    @When("I click on logout")
+    public void iClickOnLogout() {
+        homePage
+                .clickLogoutLink()
+                .clickReturn();
+    }
 }

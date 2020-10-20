@@ -2,17 +2,23 @@ package com.appraisal.pages;
 
 import com.appraisal.context.ApplicantContext;
 import com.google.inject.Inject;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.log4testng.Logger;
 
 public class LoginPage {
 
-    private String pageUrl;
-    private WebDriver webDriver;
-    private static final Logger LOGGER = Logger.getLogger(LoginPage.class);
+    private final ApplicantContext applicantContext;
+    private final String page;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+    private static final Logger logger = Logger.getLogger(LoginPage.class);
 
     @FindBy(id = "inputEmail")
     WebElement inputEmail;
@@ -25,27 +31,66 @@ public class LoginPage {
 
     @Inject
     public LoginPage(ApplicantContext applicantContext) {
-        webDriver = applicantContext.getDriverManager().getDriver();
-        pageUrl = applicantContext.getBaseUrl() + "/login";
-        PageFactory.initElements(webDriver, this);
+        logger.info("LoginPage initialized");
+        this.applicantContext = applicantContext;
+        driver = applicantContext.getDriverManager().getDriver();
+        page = applicantContext.getBaseUrl() + "/login";
+        wait = new WebDriverWait(driver, 60);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 60), this);
     }
 
     public void goTo() {
-        webDriver.get(pageUrl);
+        driver.get(page);
     }
 
-    public void enterEmail(String email) {
-        LOGGER.info("Entering email id");
+    public LoginPage enterEmail(String email) {
+        //driver.get(page);
+        //driver.navigate().refresh();
+        wait.until(ExpectedConditions.elementToBeClickable(inputEmail));
+        wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(inputEmail)));
+        /*await()
+                .atMost(5, TimeUnit.SECONDS)
+                .until(() ->inputEmail.isDisplayed());
+        wait.until(ExpectedConditions.elementToBeClickable(inputEmail));*/
+        /*JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("arguments[0].scrollIntoView()", inputEmail);
+        jse.executeScript("arguments[0].click();", inputEmail);*/
+        /*wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOf(inputEmail)));
+        wait.until(ExpectedConditions.elementToBeClickable(inputEmail));
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();", inputEmail);*/
+        /*Actions actions = new Actions(driver);
+        actions.moveToElement(inputEmail).sendKeys(email).build().perform();*/
         inputEmail.sendKeys(email);
+        if (!inputEmail.getAttribute("value").equalsIgnoreCase(email)) {
+            logger.info("Entering value through javascript");
+            JavascriptExecutor js = (JavascriptExecutor) driver;
+            String test = "arguments[0].setAttribute('value','" + email + "')";
+            js.executeScript(test, inputEmail);
+        }
+        logger.info(inputEmail.getAttribute("value"));
+        /*inputEmail.click();
+        inputEmail.clear();
+        inputEmail.sendKeys(email);*/
+        return this;
     }
 
-    public void enterPassword(String password) {
-        LOGGER.info("Entering password");
-        inputPassword.sendKeys(password);
+    public LoginPage enterPassword(String password) {
+        logger.info("Entering password");
+        // wait.until(ExpectedConditions.visibilityOf(inputPassword));
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        String test = "arguments[0].setAttribute('value','"+password+"')";
+        js.executeScript(test, inputPassword);
+        //inputPassword.sendKeys(password);
+        return this;
     }
 
-    public void clickSubmit() {
-        LOGGER.info("Clicking on submit button");
-        submitButton.click();
+    public HomePage clickSubmit() {
+        logger.info("Clicking on submit button");
+        // wait.until(ExpectedConditions.visibilityOf(submitButton));
+        //submitButton.click();
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        js.executeScript("arguments[0].click();", submitButton);
+        return new HomePage(applicantContext);
     }
 }
