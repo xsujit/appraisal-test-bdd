@@ -4,6 +4,7 @@ import com.appraisal.context.ApplicantContext;
 import com.appraisal.pages.HomePage;
 import com.appraisal.pages.LoginPage;
 import com.appraisal.pages.Register;
+import com.appraisal.pages.TeamPage;
 import com.google.inject.Inject;
 import io.cucumber.guice.ScenarioScoped;
 import io.cucumber.java.en.Given;
@@ -20,6 +21,7 @@ public class LoginSteps {
     private LoginPage loginPage;
     private HomePage homePage;
     private Register register;
+    private TeamPage teamPage;
     private final ApplicantContext applicantContext;
     private static final Logger logger = Logger.getLogger(LoginSteps.class);
 
@@ -89,4 +91,11 @@ public class LoginSteps {
                 .clickLogoutLink()
                 .clickReturn();
     }
+
+    @When("I click on Team")
+    public void iClickOnTeam() {
+        teamPage = homePage.goToTeam();
+    }
+
+
 }

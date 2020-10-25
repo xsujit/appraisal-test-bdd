@@ -7,8 +7,10 @@ Feature: Login
       | <password> |
 #    And I have valid "<username>" and "<password>"
 #    When I click on login
-    Then I should be logged in
-    When I click on logout
+    When I click on Team
+    And I click on view
+#    Then I should be logged in
+#    When I click on logout
     Examples:
       | username              | password |
       | jack.bauer@mastek.com | password |

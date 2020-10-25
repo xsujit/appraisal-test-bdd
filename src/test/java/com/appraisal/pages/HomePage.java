@@ -29,6 +29,9 @@ public class HomePage {
     @FindBy(linkText = "Login")
     WebElement loginLink;
 
+    @FindBy(linkText = "Team")
+    WebElement teamLink;
+
     @FindBy(linkText = "Logout")
     WebElement logoutLink;
 
@@ -41,7 +44,7 @@ public class HomePage {
         this.applicantContext = applicantContext;
         driver = applicantContext.getDriverManager().getDriver();
         page = applicantContext.getBaseUrl();
-        wait = new WebDriverWait(driver, 60);
+        wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver,5), this);
     }
 
@@ -82,6 +85,11 @@ public class HomePage {
         logoutLink.sendKeys(Keys.ENTER);
         //logoutLink.click();
         return new LogoutSuccess(applicantContext);
+    }
+
+    public TeamPage goToTeam() {
+        teamLink.click();
+        return new TeamPage(applicantContext);
     }
 
 }
