@@ -30,7 +30,7 @@ public class HomeSteps {
 
     @And("I click on view")
     public void iClickOnView() throws JsonProcessingException {
-        List<TeamTable> actuates = new TeamPage(applicantContext).readTable();
+        List<TeamTable> actuates = new TeamPage(applicantContext).readTableByXpath();
         String jack = "{\"First Name\":\"George\",\"Employee Id\":\"11227\",\"Appraisal\":\"View\",\"My Vote\":\"\",\"Sr. No\":\"1\",\"Last Name\":\"Bauer\"}";
         String james = "{\"First Name\":\"James\",\"Employee Id\":\"11228\",\"Appraisal\":\"View\",\"My Vote\":\"\",\"Sr. No\":\"2\",\"Last Name\":\"Bond\"}";
         String stuart = "{\"First Name\":\"Stuart\",\"Employee Id\":\"11229\",\"Appraisal\":\"View\",\"My Vote\":\"\",\"Sr. No\":\"3\",\"Last Name\":\"Little\"}";
