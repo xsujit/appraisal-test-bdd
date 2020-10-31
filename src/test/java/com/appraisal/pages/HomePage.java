@@ -39,10 +39,10 @@ public class HomePage {
     WebElement homeLink;
 
     @Inject
-    public HomePage(ApplicantContext applicantContext) {
+    public HomePage(ApplicantContext applicantContext, WebDriver driver) {
         logger.info("HomePage initialized");
         this.applicantContext = applicantContext;
-        driver = applicantContext.getDriverManager().getDriver();
+        this.driver = driver;
         page = applicantContext.getBaseUrl();
         wait = new WebDriverWait(driver, 10);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver,5), this);
@@ -50,7 +50,7 @@ public class HomePage {
 
     public HomePage goTo() {
         driver.get(page);
-        return new HomePage(applicantContext);
+        return this;
     }
 
     public String getBanner() {
@@ -80,16 +80,15 @@ public class HomePage {
         //return new LoginPage(applicantContext);
     }
 
-    public LogoutSuccess clickLogoutLink() {
+    public void clickLogoutLink() {
         //wait.until(ExpectedConditions.visibilityOf(logoutLink));
         logoutLink.sendKeys(Keys.ENTER);
         //logoutLink.click();
-        return new LogoutSuccess(applicantContext);
+        
     }
 
-    public TeamPage goToTeam() {
+    public void goToTeam() {
         teamLink.click();
-        return new TeamPage(applicantContext);
     }
 
 }

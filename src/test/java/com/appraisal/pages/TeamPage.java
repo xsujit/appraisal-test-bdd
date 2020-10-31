@@ -1,6 +1,5 @@
 package com.appraisal.pages;
 
-import com.appraisal.context.ApplicantContext;
 import com.appraisal.model.TeamTable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +20,6 @@ import java.util.Map;
 
 public class TeamPage {
 
-    private final ApplicantContext applicantContext;
     private final WebDriver driver;
     private static final Logger logger = Logger.getLogger(LoginPage.class);
 
@@ -32,9 +30,8 @@ public class TeamPage {
     WebElement table;
 
     @Inject
-    public TeamPage(ApplicantContext applicantContext) {
-        this.applicantContext = applicantContext;
-        driver = applicantContext.getDriverManager().getDriver();
+    public TeamPage(WebDriver driver) {
+        this.driver = driver;
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 60), this);
     }
 

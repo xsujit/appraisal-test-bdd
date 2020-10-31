@@ -2,32 +2,42 @@ package com.appraisal.guice;
 
 import com.appraisal.driver.ChromeDriverManager;
 import com.appraisal.driver.DriverManager;
+import com.appraisal.driver.FirefoxDriverManager;
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
 import com.google.inject.Scopes;
-import com.google.inject.name.Names;
+import org.openqa.selenium.WebDriver;
+import org.testng.log4testng.Logger;
 
 public class AppModule extends AbstractModule {
+
+    private static final Logger logger = Logger.getLogger(AppModule.class);
 
     @Override
     protected void configure() {
 
-        bind(DriverManager.class)
-                .annotatedWith(Names.named("CHROME"))
-                .to(ChromeDriverManager.class)
-                .in(Scopes.SINGLETON);
-    }
+        if (System.getProperty("browser").equalsIgnoreCase("CHROME"))
+            bind(DriverManager.class)
+                    .to(ChromeDriverManager.class)
+                    .in(Scopes.SINGLETON);
+        else
+            bind(DriverManager.class)
+                    .to(FirefoxDriverManager.class)
+                    .in(Scopes.SINGLETON);
 
-    /*@Provides
-    public WebDriver getDriver(@ChromeBrowser DriverManager driverManager) {
-        System.out.println("getDriver");
-        return driverManager.getDriver();
     }
 
     @Provides
+    public WebDriver getDriver(DriverManager driverManager) {
+        logger.info("getDriver");
+        return driverManager.getDriver();
+    }
+
+    /*@Provides
     @ChromeBrowser
     @Singleton
     public DriverManager getChromeDriverManager() {
         return new ChromeDriverManager();
-    }*/
-
+    }
+*/
 }

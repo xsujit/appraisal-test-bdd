@@ -1,6 +1,5 @@
 package com.appraisal.steps;
 
-import com.appraisal.context.ApplicantContext;
 import com.appraisal.model.TeamTable;
 import com.appraisal.pages.TeamPage;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -19,18 +18,18 @@ import java.util.List;
 @ScenarioScoped
 public class HomeSteps {
 
-    private final ApplicantContext applicantContext;
+    private final TeamPage teamPage;
     private static final Logger logger = Logger.getLogger(HomeSteps.class);
 
     @Inject
-    public HomeSteps(ApplicantContext applicantContext) {
+    public HomeSteps(TeamPage teamPage) {
         logger.info("HomeSteps initialized");
-        this.applicantContext = applicantContext;
+        this.teamPage = teamPage;
     }
 
     @And("I click on view")
     public void iClickOnView() throws JsonProcessingException {
-        List<TeamTable> actuates = new TeamPage(applicantContext).readTableByXpath();
+        List<TeamTable> actuates = teamPage.readTableByXpath();
         String jack = "{\"First Name\":\"George\",\"Employee Id\":\"11227\",\"Appraisal\":\"View\",\"My Vote\":\"\",\"Sr. No\":\"1\",\"Last Name\":\"Bauer\"}";
         String james = "{\"First Name\":\"James\",\"Employee Id\":\"11228\",\"Appraisal\":\"View\",\"My Vote\":\"\",\"Sr. No\":\"2\",\"Last Name\":\"Bond\"}";
         String stuart = "{\"First Name\":\"Stuart\",\"Employee Id\":\"11229\",\"Appraisal\":\"View\",\"My Vote\":\"\",\"Sr. No\":\"3\",\"Last Name\":\"Little\"}";

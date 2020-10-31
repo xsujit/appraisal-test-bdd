@@ -18,6 +18,7 @@ public class LoginPage {
     private final String page;
     private final WebDriver driver;
     private final WebDriverWait wait;
+    HomePage homePage;
     private static final Logger logger = Logger.getLogger(LoginPage.class);
 
     @FindBy(id = "inputEmail")
@@ -30,10 +31,10 @@ public class LoginPage {
     WebElement submitButton;
 
     @Inject
-    public LoginPage(ApplicantContext applicantContext) {
+    public LoginPage(ApplicantContext applicantContext, WebDriver driver) {
         logger.info("LoginPage initialized");
         this.applicantContext = applicantContext;
-        driver = applicantContext.getDriverManager().getDriver();
+        this.driver = driver;
         page = applicantContext.getBaseUrl() + "/login";
         wait = new WebDriverWait(driver, 60);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 60), this);
@@ -85,12 +86,11 @@ public class LoginPage {
         return this;
     }
 
-    public HomePage clickSubmit() {
+    public void clickSubmit() {
         logger.info("Clicking on submit button");
         // wait.until(ExpectedConditions.visibilityOf(submitButton));
         //submitButton.click();
         JavascriptExecutor js = (JavascriptExecutor)driver;
         js.executeScript("arguments[0].click();", submitButton);
-        return new HomePage(applicantContext);
     }
 }

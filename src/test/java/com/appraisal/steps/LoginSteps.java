@@ -4,9 +4,9 @@ import com.appraisal.context.ApplicantContext;
 import com.appraisal.pages.HomePage;
 import com.appraisal.pages.LoginPage;
 import com.appraisal.pages.Register;
-import com.appraisal.pages.TeamPage;
 import com.google.inject.Inject;
 import io.cucumber.guice.ScenarioScoped;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -18,37 +18,36 @@ import java.util.List;
 @ScenarioScoped
 public class LoginSteps {
 
-    private LoginPage loginPage;
-    private HomePage homePage;
+    private final LoginPage loginPage;
+    private final HomePage homePage;
+    private final ApplicantContext appContext;
     private Register register;
-    private TeamPage teamPage;
-    private final ApplicantContext applicantContext;
+
     private static final Logger logger = Logger.getLogger(LoginSteps.class);
 
     @Inject
-    public LoginSteps(ApplicantContext applicantContext) {
+    public LoginSteps(ApplicantContext appContext, HomePage homePage, LoginPage loginPage) {
         logger.info("LoginSteps initialized");
-        this.applicantContext = applicantContext;
+        this.homePage = homePage;
+        this.loginPage = loginPage;
+        this.appContext = appContext;
     }
 
-    @Given("I open the {string} page")
-    public void iOpenThePage(String page) {
-        switch (page) {
-            case "register":
-                logger.info("Navigating to register page");
-                register.goTo();
-                break;
-            case "login":
-                logger.info("Navigating to login page");
-                loginPage.goTo();
-                break;
-            case "home":
-                logger.info("Navigating to home page");
-                homePage.goTo();
-                break;
-            default:
-                System.out.println("No matching page");
-        }
+    @Given("I am an appraisal app user")
+    public void iAmAAppraisalAppUser(List<String> credentials) {
+        appContext
+                .setUsername(credentials.get(0))
+                .setPassword(credentials.get(1));
+    }
+
+    @And("I login to the appraisal application")
+    public void iLoginToTheAppraisalApplication() {
+        homePage
+                .goTo()
+                .clickLoginLink();
+        loginPage.enterEmail(appContext.getUsername())
+                .enterPassword(appContext.getPassword())
+                .clickSubmit();
     }
 
     @Given("I have valid {string} and {string}")
@@ -68,34 +67,14 @@ public class LoginSteps {
         Assert.assertEquals(homePage.getBanner(), "Hello, welcome to appraisal 2018");
     }
 
-    @Given("I open the application and login using the following")
-    public void iOpenTheApplicationAndLoginUsingTheFollowing(List<String> credentials) {
-        /*homePage = new HomePage(applicantContext)
-                .goTo()
-                .clickLoginLink()
-                .enterEmail(credentials.get(0))
-                .enterPassword(credentials.get(1))
-                .clickSubmit();*/
-        new HomePage(applicantContext)
-                .goTo()
-                .clickLoginLink();
-        homePage = new LoginPage(applicantContext).enterEmail(credentials.get(0))
-                .enterPassword(credentials.get(1))
-                .clickSubmit();
-
-    }
-
     @When("I click on logout")
     public void iClickOnLogout() {
-        homePage
-                .clickLogoutLink()
-                .clickReturn();
+        homePage.clickLogoutLink();
     }
 
     @When("I click on Team")
     public void iClickOnTeam() {
-        teamPage = homePage.goToTeam();
+        homePage.goToTeam();
     }
-
 
 }

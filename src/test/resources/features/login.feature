@@ -2,9 +2,10 @@
 Feature: Login
 
   Scenario Outline: Login should be successful
-    Given I open the application and login using the following
+    Given I am an appraisal app user
       | <username> |
       | <password> |
+    And I login to the appraisal application
 #    And I have valid "<username>" and "<password>"
 #    When I click on login
     When I click on Team

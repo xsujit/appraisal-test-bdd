@@ -1,20 +1,20 @@
 package com.appraisal.steps;
 
-import com.appraisal.context.ApplicantContext;
 import com.google.inject.Inject;
 import io.cucumber.java.After;
+import org.openqa.selenium.WebDriver;
 
 public class TearDown {
 
-    ApplicantContext applicantContext;
+    WebDriver driver;
 
     @Inject
-    public TearDown(ApplicantContext applicantContext) {
-        this.applicantContext = applicantContext;
+    public TearDown(WebDriver driver) {
+        this.driver = driver;
     }
 
     @After
     public void closeBrowser() {
-        applicantContext.getDriverManager().quitDriver();
+        driver.quit();
     }
 }

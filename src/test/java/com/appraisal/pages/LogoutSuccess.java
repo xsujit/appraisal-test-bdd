@@ -1,6 +1,5 @@
 package com.appraisal.pages;
 
-import com.appraisal.context.ApplicantContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -18,9 +17,9 @@ public class LogoutSuccess {
     @FindBy(linkText = "Return Home")
     WebElement returnLink;
 
-    public LogoutSuccess(ApplicantContext applicantContext) {
+    public LogoutSuccess(WebDriver driver) {
         logger.info("LogoutSuccess initialized");
-        driver = applicantContext.getDriverManager().getDriver();
+        this.driver = driver;
         wait = new WebDriverWait(driver, 60);
         PageFactory.initElements(new AjaxElementLocatorFactory(driver,5), this);
     }

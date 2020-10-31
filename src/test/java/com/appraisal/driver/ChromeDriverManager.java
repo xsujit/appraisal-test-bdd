@@ -1,18 +1,20 @@
 package com.appraisal.driver;
 
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.testng.log4testng.Logger;
 
 import java.io.File;
 
 public class ChromeDriverManager extends DriverManager {
 
-    private static ChromeDriverService service;
+    private ChromeDriverService service;
+    private static final Logger logger = Logger.getLogger(ChromeDriverManager.class);
 
     @Override
     public void startService() {
-        if (null == service) {
+        if (service == null) {
             try {
                 service = new ChromeDriverService.Builder()
                         .usingDriverExecutable(new File("chromedriver.exe"))
@@ -20,14 +22,14 @@ public class ChromeDriverManager extends DriverManager {
                         .build();
                 service.start();
             } catch (Exception e) {
-                e.printStackTrace();
+                logger.error("Error starting the chrome driver service: ", e);
             }
         }
     }
 
     @Override
     public void stopService() {
-        if (null != service && service.isRunning())
+        if (service != null && service.isRunning())
             service.stop();
     }
 
@@ -36,7 +38,13 @@ public class ChromeDriverManager extends DriverManager {
         startService();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("test-type");
-        driver = new RemoteWebDriver(service.getUrl(), options);
+        //options.setHeadless(true);
+        //driver = new RemoteWebDriver(service.getUrl(), capabilities);
+        options.setCapability("browserName", "firefox");
+        options.setCapability("platform", "WINDOWS");
+        logger.info(options.getPlatform());
+        logger.info(options.getBrowserName());
+        driver = new ChromeDriver(service, options);
         // com.appraisal.driver = new ChromeDriver(service, new ChromeOptions());
     }
 }
