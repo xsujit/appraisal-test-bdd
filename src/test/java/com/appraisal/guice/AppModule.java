@@ -16,14 +16,21 @@ public class AppModule extends AbstractModule {
     @Override
     protected void configure() {
 
-        if (System.getProperty("browser").equalsIgnoreCase("CHROME"))
-            bind(DriverManager.class)
-                    .to(ChromeDriverManager.class)
-                    .in(Scopes.SINGLETON);
-        else
-            bind(DriverManager.class)
-                    .to(FirefoxDriverManager.class)
-                    .in(Scopes.SINGLETON);
+        String browser = System.getProperty("browser").toUpperCase();
+        Class<? extends DriverManager> driver;
+        switch (browser) {
+            case "CHROME":
+                driver = ChromeDriverManager.class;
+                break;
+            case "FIREFOX":
+                driver = FirefoxDriverManager.class;
+                break;
+            default:
+                throw new IllegalArgumentException("Browser should be chrome or firefox");
+        }
+        bind(DriverManager.class)
+                .to(driver)
+                .in(Scopes.SINGLETON);
 
     }
 
